@@ -4,7 +4,8 @@
     android:orientation="horizontal"
     android:layout_width="fill_parent"
     android:layout_height="wrap_content"
-    android:paddingLeft="15dp">
+
+    >
 
     <RelativeLayout
         android:id="@+id/comment_box"
@@ -42,7 +43,12 @@
         android:layout_alignParentLeft="true"
         android:layout_toLeftOf="@id/comment_box"
         android:layout_alignParentBottom="true"
-        android:orientation="vertical">
+        android:paddingLeft="15dp"
+        android:paddingRight="15dp"
+        android:orientation="vertical"
+        android:background="#fff"
+
+        >
 
         <TextView
             android:id="@+id/story_title"

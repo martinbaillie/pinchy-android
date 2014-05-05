@@ -19,7 +19,8 @@ public class LobsterStory {
     public String short_id;
     public int score;
     public String user;
-    public Vector<LobsterComment> comments = new Vector<LobsterComment>();
+    public int index;
+    public ArrayList<LobsterComment> comments = new ArrayList<LobsterComment>();
     private static ArrayList<LobsterStory> hottest= new ArrayList<LobsterStory>();
 
     public static ArrayList<LobsterStory> hottest(){
@@ -47,11 +48,14 @@ public class LobsterStory {
 
         }
     }
-    public static void addHottest(JSONObject data){
+    public static void addHottest(JSONObject data, int index){
         LobsterStory story = new LobsterStory(data);
+        story.index = index;
         hottest.add(story);
     }
-
+    public void resetComments(){
+        comments.clear();
+    }
     @Override
     public String toString(){
         return this.title;

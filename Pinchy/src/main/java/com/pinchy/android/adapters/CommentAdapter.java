@@ -19,6 +19,7 @@ import com.pinchy.android.NetworkCallback;
 import com.pinchy.android.R;
 import com.squareup.picasso.Picasso;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 /**
@@ -29,8 +30,8 @@ public class CommentAdapter extends ArrayAdapter<String> {
 
     private Context context;
     RoundedTransformation roundedCorners;
-    Vector<LobsterComment> comments;
-    public CommentAdapter(Context context,Vector<LobsterComment> comments ) {
+    ArrayList<LobsterComment> comments;
+    public CommentAdapter(Context context,ArrayList<LobsterComment> comments ) {
         super(context, R.layout.story_view);
         this.comments = comments;
         this.context = context;

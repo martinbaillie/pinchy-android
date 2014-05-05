@@ -3,6 +3,7 @@ package com.pinchy.android.activites;
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -20,9 +21,12 @@ import com.pinchy.android.adapters.StoryAdapter;
 import com.pinchy.android.models.LobsterComment;
 import com.pinchy.android.models.LobsterStory;
 
+import java.util.ArrayList;
 import java.util.Vector;
 
 public class CommentsViewActivity extends Activity {
+
+    LobsterStory story;
     private void setActionBarTitle(String title, ActionBar actionBar, Context context){
         SpannableString s = new SpannableString(title);
         s.setSpan(new TypefaceSpan(context,"Lobster 1.4.otf"), 0, s.length(),
@@ -37,25 +41,19 @@ public class CommentsViewActivity extends Activity {
         setActionBarTitle("Lobste.rs", getActionBar(), this);
         setContentView(R.layout.activity_comments_view);
         Bundle extras = getIntent().getExtras();
-        final LobsterStory story;
         int story_index = 0;
         if (extras != null) {
             story_index = extras.getInt("story_index");
         }
         story = LobsterStory.hottest().get(story_index);
         final ListView storyFeed = (ListView) findViewById(R.id.commentsView);
-        final Context context = getApplicationContext();
-        Vector<LobsterComment> comments = story.comments;
-        final CommentAdapter adapter = new CommentAdapter(context, comments);
+        ArrayList<LobsterComment> comments = story.comments;
+        final CommentAdapter adapter = new CommentAdapter(this, comments);
         storyFeed.setAdapter(adapter);
 
         LobsterAPIClient.getComments(story, new NetworkCallback() {
             @Override
             public void onSuccess() {
-                for (LobsterComment comment : story.comments){
-                    Log.d("Comments", comment.toString());
-
-                }
                 adapter.notifyDataSetChanged();
             }
 
@@ -80,8 +78,17 @@ public class CommentsViewActivity extends Activity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        if (id == R.id.action_settings) {
-            return true;
+        Intent intent;
+        switch (id){
+            case R.id.action_settings:
+                intent = new Intent(this, UserSettingActivity.class);
+                startActivity(intent);
+                return true;
+            case R.id.action_open_web:
+                intent = new Intent(this, WebViewActivity.class);
+                intent.putExtra("story_index", story.index);
+                startActivity(intent);
+                return true;
         }
         return super.onOptionsItemSelected(item);
     }

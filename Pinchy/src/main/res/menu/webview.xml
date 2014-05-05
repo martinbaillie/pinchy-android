@@ -6,10 +6,14 @@
         android:title="@string/action_settings"
         android:orderInCategory="100"
         app:showAsAction="never" />
-    <item android:id="@+id/action_refresh"
-        android:title="Refresh"
-        android:icon="@drawable/ic_action_refresh"
-        android:showAsAction="ifRoom"
-        android:orderInCategory="000"/>
-
+    <item android:id="@+id/action_search"
+        android:icon="@drawable/comment_light"
+        android:title="Comments"
+        android:showAsAction="ifRoom" />
+    <item android:id="@+id/action_share"
+        android:title="Share"
+        android:icon="@android:drawable/ic_menu_share"
+        android:actionProviderClass=
+            "android.widget.ShareActionProvider"
+        />
 </menu>

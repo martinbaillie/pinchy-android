@@ -34,6 +34,7 @@ public class LobsterAPIClient {
             public void onSuccess(JSONObject response) {
                 // Pull out the first event on the public timeline
                 try {
+                    story.resetComments();
                     JSONArray comments = response.getJSONArray("comments");
                     for (int i = 0; i < comments.length(); i++) {
                         JSONObject comment_data = comments.getJSONObject(i);
@@ -65,11 +66,8 @@ public class LobsterAPIClient {
                 for(int i=0; i< stories.length(); i++){
                     JSONObject story = null;
                     try {
-
                         story = stories.getJSONObject(i);
-                        LobsterStory.addHottest(story);
-
-                        Log.d(TAG, story.toString());
+                        LobsterStory.addHottest(story, i);
 
                     } catch (JSONException e) {
                         e.printStackTrace();

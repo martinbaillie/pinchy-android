@@ -1,6 +1,7 @@
 package com.pinchy.android.adapters;
 
 import android.content.Context;
+import android.content.Intent;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pinchy.android.LobsterAPIClient;
+import com.pinchy.android.activites.CommentsViewActivity;
 import com.pinchy.android.models.LobsterStory;
 import com.pinchy.android.NetworkCallback;
 import com.pinchy.android.R;
@@ -32,10 +34,10 @@ public class StoryAdapter extends ArrayAdapter<String> {
         this.stories = stories;
         this.context = context;
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
     }
 
     public void refresh(ArrayList<LobsterStory> stories){
+        this.page = 2;
         this.stories = stories;
         this.notifyDataSetChanged();
     }
@@ -49,11 +51,9 @@ public class StoryAdapter extends ArrayAdapter<String> {
         TextView submitter;
         TextView comment_count;
         TextView votes;
+        View comment_section;
     };
 
-    protected void onListItemClick (ListView l, View v, int position, long id){
-    Log.d("YO", "Clicked something");
-    }
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
@@ -68,6 +68,7 @@ public class StoryAdapter extends ArrayAdapter<String> {
             viewHolder.submitter = (TextView) convertView.findViewById(R.id.submitter);
             viewHolder.comment_count = (TextView) convertView.findViewById(R.id.comments);
             viewHolder.votes = (TextView) convertView.findViewById(R.id.votes);
+            viewHolder.comment_section = convertView.findViewById(R.id.comment_box);
             convertView.setTag(viewHolder);
         }else{
             viewHolder = (ViewHolder)convertView.getTag();
@@ -94,6 +95,14 @@ public class StoryAdapter extends ArrayAdapter<String> {
         viewHolder.submitter.setText(item.user);
         viewHolder.comment_count.setText(item.comment_count + "");
         viewHolder.votes.setText(item.score + "");
+        viewHolder.comment_section.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(context, CommentsViewActivity.class);
+                intent.putExtra("story_index", position);
+                context.startActivity(intent);
+            }
+        });
         return convertView;
     }
 }
