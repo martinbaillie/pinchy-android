@@ -2,3 +2,6 @@
 /local.properties
 /.idea/workspace.xml
 .DS_Store
+
+Pinchy/release.keystore
+Pinchy/singing.properties
