@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+    <FrameLayout
+        android:id="@+id/comment_container"
+        android:layout_width="fill_parent"
+        android:background="@drawable/comment_indent_background"
+        android:layout_height="fill_parent">
+        <LinearLayout
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+            <LinearLayout
+                android:layout_width="fill_parent"
+                android:orientation="horizontal"
+                android:background="#eee"
+                android:layout_height="wrap_content">
+                <ImageView
+                    android:id="@+id/commenting_user_avatar"
+                    android:padding="5dp"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp" />
+                <TextView
+                    android:id="@+id/commenting_user_name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:textColor="#666"
+                    android:text="John AppleSeed"/>
+                </LinearLayout>
+            <TextView
+                android:layout_width="fill_parent"
+                android:layout_height="wrap_content"
+                android:text="New Text"
+                android:background="#ffffff"
+                android:textColor="#000"
+                android:padding="10dp"
+                android:id="@+id/comment_data" />
+            </LinearLayout>
+
+        </FrameLayout>
+
+</LinearLayout>

@@ -1,0 +1,20 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    >
+    <TextView
+        xmlns:tools="http://schemas.android.com/tools"
+        android:id="@+id/story_detail"
+        style="?android:attr/textAppearanceLarge"
+        android:padding="16dp"
+        android:textIsSelectable="false"
+        tools:context="com.pinchy.android.StoryDetailFragment"
+        android:layout_height="wrap_content"
+        android:layout_width="wrap_content" />
+    <WebView
+        android:layout_height="fill_parent"
+        android:layout_width="fill_parent"
+        android:id="@+id/webView"
+        />
+</RelativeLayout>
+
