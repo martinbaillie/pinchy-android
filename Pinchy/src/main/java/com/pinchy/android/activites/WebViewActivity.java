@@ -8,6 +8,7 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.ShareCompat;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.webkit.WebView;
@@ -21,6 +22,8 @@ public class WebViewActivity extends Activity {
     private ShareActionProvider mShareActionProvider;
     private WebView webView;
     LobsterStory story;
+    static String TAG = "WebView";
+
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.webview);
@@ -31,6 +34,14 @@ public class WebViewActivity extends Activity {
             story_index = extras.getInt("story_index");
         }
         story = LobsterStory.hottest().get(story_index);
+
+        if(story.isSelfPost()){
+            Intent intent = new Intent(this, CommentsViewActivity.class);
+            intent.putExtra("story_index", story_index);
+            startActivity(intent);
+            return;
+        }
+        Log.d(TAG,"url:" +  story.url  + " /");
         ActionBar actionBar = getActionBar();
         actionBar.setTitle(story.title);
         webView = (WebView) findViewById(R.id.webView1);
@@ -45,6 +56,7 @@ public class WebViewActivity extends Activity {
             }
         });
         getActionBar().setDisplayHomeAsUpEnabled(true);
+
     }
 
     @Override

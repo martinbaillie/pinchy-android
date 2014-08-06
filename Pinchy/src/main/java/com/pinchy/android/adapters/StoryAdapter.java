@@ -41,6 +41,7 @@ public class StoryAdapter extends ArrayAdapter<String> {
         this.stories = stories;
         this.notifyDataSetChanged();
     }
+
     @Override
     public int getCount(){
         return stories.size();

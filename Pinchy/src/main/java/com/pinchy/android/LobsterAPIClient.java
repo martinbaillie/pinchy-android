@@ -54,6 +54,7 @@ public class LobsterAPIClient {
             }
         });
     }
+
     public static void getHottest(Integer page, final NetworkCallback callback){
         if(page == null){
             page = 1;

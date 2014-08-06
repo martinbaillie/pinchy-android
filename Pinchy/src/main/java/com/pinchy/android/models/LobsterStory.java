@@ -53,6 +53,10 @@ public class LobsterStory {
         story.index = index;
         hottest.add(story);
     }
+    public boolean isSelfPost(){
+        return this.url.isEmpty();
+    }
+
     public void resetComments(){
         comments.clear();
     }
