@@ -1,7 +1,5 @@
 package com.pinchy.android.activites;
 
-import java.util.Locale;
-
 import android.app.ActionBar;
 import android.app.Activity;
 import android.content.Context;
