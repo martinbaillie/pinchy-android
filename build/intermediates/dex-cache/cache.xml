@@ -1,41 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<pre-dex-items>
+<items version="2" >
 
     <item
-        dex="/Users/conormongey/code/open-source/pinchy-android2/Pinchy/build/intermediates/pre-dexed/debug/classes-690c095e5e2b49e65e4cb0ea6a06668a1dcebe2b.jar"
         jar="/Users/conormongey/code/open-source/pinchy-android2/Pinchy/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/classes.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="8694693636ab36910c8100ce527c258ff3ebece0"/>
+        sha1="8694693636ab36910c8100ce527c258ff3ebece0">
+        <dex dex="/Users/conormongey/code/open-source/pinchy-android2/Pinchy/build/intermediates/pre-dexed/debug/classes-690c095e5e2b49e65e4cb0ea6a06668a1dcebe2b.jar" />
+    </item>
     <item
-        dex="/Users/conormongey/code/open-source/pinchy-android2/Pinchy/build/intermediates/pre-dexed/debug/android-async-http-1.4.3-f2ec370c8ab9adb91a1863a1ac0a516bd9f36faf.jar"
-        jar="/Users/conormongey/.gradle/caches/modules-2/files-2.1/com.loopj.android/android-async-http/1.4.3/a490cc97b84d41e6fa51678ad2c21fddb93dcf8d/android-async-http-1.4.3.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="a490cc97b84d41e6fa51678ad2c21fddb93dcf8d"/>
-    <item
-        dex="/Users/conormongey/code/open-source/pinchy-android2/Pinchy/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-bca9cd8c8082330ef7549e0398af852faae531fd.jar"
-        jar="/Applications/Android Studio.app/sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa"/>
-    <item
-        dex="/Users/conormongey/code/open-source/pinchy-android2/Pinchy/build/intermediates/pre-dexed/debug/classes-d2a2e845dbbb821844c0d356b64ccc45f9143a64.jar"
         jar="/Users/conormongey/code/open-source/pinchy-android2/Pinchy/build/intermediates/exploded-aar/com.android.support/appcompat-v7/20.0.0/classes.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="f21927d22fe31889ecce94dd697a2e75b137e0ef"/>
+        sha1="f21927d22fe31889ecce94dd697a2e75b137e0ef">
+        <dex dex="/Users/conormongey/code/open-source/pinchy-android2/Pinchy/build/intermediates/pre-dexed/debug/classes-d2a2e845dbbb821844c0d356b64ccc45f9143a64.jar" />
+    </item>
     <item
-        dex="/Users/conormongey/code/open-source/pinchy-android2/Pinchy/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-6b2c2a81d95aab7b6ef4c1a32aafcda993297299.jar"
-        jar="/Users/conormongey/code/open-source/pinchy-android2/Pinchy/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
-        jumboMode="false"
-        revision="19.1.0"
-        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d"/>
-    <item
-        dex="/Users/conormongey/code/open-source/pinchy-android2/Pinchy/build/intermediates/pre-dexed/debug/picasso-2.2.0-25107bd2dfa4631f4397e72cf67323061ce7b9cb.jar"
         jar="/Users/conormongey/.gradle/caches/modules-2/files-2.1/com.squareup.picasso/picasso/2.2.0/74137f8d9aac26dd9463efe32271f2be8d41cda9/picasso-2.2.0.jar"
         jumboMode="false"
         revision="19.1.0"
-        sha1="74137f8d9aac26dd9463efe32271f2be8d41cda9"/>
+        sha1="74137f8d9aac26dd9463efe32271f2be8d41cda9">
+        <dex dex="/Users/conormongey/code/open-source/pinchy-android2/Pinchy/build/intermediates/pre-dexed/debug/picasso-2.2.0-25107bd2dfa4631f4397e72cf67323061ce7b9cb.jar" />
+    </item>
+    <item
+        jar="/Users/conormongey/.gradle/caches/modules-2/files-2.1/com.loopj.android/android-async-http/1.4.3/a490cc97b84d41e6fa51678ad2c21fddb93dcf8d/android-async-http-1.4.3.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="a490cc97b84d41e6fa51678ad2c21fddb93dcf8d">
+        <dex dex="/Users/conormongey/code/open-source/pinchy-android2/Pinchy/build/intermediates/pre-dexed/debug/android-async-http-1.4.3-f2ec370c8ab9adb91a1863a1ac0a516bd9f36faf.jar" />
+    </item>
+    <item
+        jar="/Users/conormongey/code/open-source/pinchy-android2/Pinchy/build/intermediates/exploded-aar/com.android.support/support-v4/20.0.0/libs/internal_impl-20.0.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="e40b3078e3fbd353c9f44da8df25a8fc0078209d">
+        <dex dex="/Users/conormongey/code/open-source/pinchy-android2/Pinchy/build/intermediates/pre-dexed/debug/internal_impl-20.0.0-6b2c2a81d95aab7b6ef4c1a32aafcda993297299.jar" />
+    </item>
+    <item
+        jar="/Users/conormongey/android-sdk/extras/android/m2repository/com/android/support/support-annotations/20.0.0/support-annotations-20.0.0.jar"
+        jumboMode="false"
+        revision="19.1.0"
+        sha1="9d9013e9ff35fc3756411e62873c363c70c638fa">
+        <dex dex="/Users/conormongey/code/open-source/pinchy-android2/Pinchy/build/intermediates/pre-dexed/debug/support-annotations-20.0.0-140e2e2589c7e6d96b6e22f3fbeb6c10a7ef772c.jar" />
+    </item>
 
-</pre-dex-items>
+</items>

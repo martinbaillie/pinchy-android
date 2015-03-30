@@ -20,35 +20,23 @@ import com.pinchy.android.adapters.CommentAdapter;
 import com.pinchy.android.adapters.StoryAdapter;
 import com.pinchy.android.models.LobsterComment;
 import com.pinchy.android.models.LobsterStory;
+import com.pinchy.android.views.ActionBarFontSetter;
 
 import java.util.ArrayList;
 import java.util.Vector;
 
 public class CommentsViewActivity extends Activity {
-
     LobsterStory story;
-    private void setActionBarTitle(String title, ActionBar actionBar, Context context){
-        SpannableString s = new SpannableString(title);
-        s.setSpan(new TypefaceSpan(context,"Lobster 1.4.otf"), 0, s.length(),
-                Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+    private int story_index;
 
-// Update the action bar title with the TypefaceSpan instance
-        actionBar.setTitle(s);
-    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setActionBarTitle("Lobste.rs", getActionBar(), this);
         setContentView(R.layout.activity_comments_view);
-        Bundle extras = getIntent().getExtras();
-        int story_index = 0;
-        if (extras != null) {
-            story_index = extras.getInt("story_index");
-        }
-        story = LobsterStory.hottest().get(story_index);
-        final ListView storyFeed = (ListView) findViewById(R.id.commentsView);
-        ArrayList<LobsterComment> comments = story.comments;
-        final CommentAdapter adapter = new CommentAdapter(this, comments);
+        setStory();
+        ActionBarFontSetter.set(story.title, getActionBar(), this);
+        ListView storyFeed = (ListView) findViewById(R.id.commentsView);
+        final CommentAdapter adapter = new CommentAdapter(this, story.comments);
         storyFeed.setAdapter(adapter);
 
         LobsterAPIClient.getComments(story, new NetworkCallback() {
@@ -64,7 +52,6 @@ public class CommentsViewActivity extends Activity {
         });
     }
 
-
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -74,22 +61,31 @@ public class CommentsViewActivity extends Activity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-        Intent intent;
+        Intent intent = null;
         switch (id){
             case R.id.action_settings:
                 intent = new Intent(this, UserSettingActivity.class);
-                startActivity(intent);
-                return true;
+                break;
             case R.id.action_open_web:
                 intent = new Intent(this, WebViewActivity.class);
                 intent.putExtra("story_index", story.index);
-                startActivity(intent);
+                break;
+            case android.R.id.home:
+                onBackPressed();
                 return true;
         }
+        startActivity(intent);
         return super.onOptionsItemSelected(item);
+    }
+
+
+    private void setStory(){
+        Bundle extras = getIntent().getExtras();
+        story_index = 0;
+        if (extras != null) {
+            story_index = extras.getInt("story_index");
+        }
+        story = LobsterStory.hottest().get(story_index);
     }
 }

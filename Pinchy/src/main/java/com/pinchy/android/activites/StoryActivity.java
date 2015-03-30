@@ -5,9 +5,13 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
+import android.content.SharedPreferences;
+import android.net.Uri;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -20,7 +24,6 @@ import com.pinchy.android.R;
 import com.pinchy.android.TypefaceSpan;
 import com.pinchy.android.adapters.StoryAdapter;
 import com.pinchy.android.models.LobsterStory;
-
 
 public class StoryActivity extends Activity {
 
@@ -70,13 +73,25 @@ public class StoryActivity extends Activity {
         refresh();
         storyFeed.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent intent = new Intent(getApplicationContext(), WebViewActivity.class);
-                intent.putExtra("story_index",position);
-                startActivity(intent);
+                storyClickHandler(position);
             }
         });
     }
 
+    private void storyClickHandler(int position){
+        Intent intent;
+        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        boolean useDefaultWebBrowser = SP.getBoolean("UseDefaultWebBrowser", true);
+        if(useDefaultWebBrowser){
+           String url = LobsterStory.hottest().get(position).url;
+           intent =  new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+        }else{
+            intent = new Intent(getApplicationContext(), WebViewActivity.class);
+            intent.putExtra("story_index", position);
+        }
+
+        startActivity(intent);
+    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
