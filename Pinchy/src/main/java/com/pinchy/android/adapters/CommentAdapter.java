@@ -31,18 +31,23 @@ import java.util.Vector;
  * Created by conormongey on 04/05/2014.
  */
 public class CommentAdapter extends ArrayAdapter<String> {
+    private static String TAG = "CommentAdapater";
     private LayoutInflater inflater;
+    static int COMMENT_BORDER_PADDING = 20;
+    static int ROUNDED_CORNER_RADIUS = 105;
+    static int ROUNDED_CORNER_MARGIN = 0;
+    static int VIEW_COLLAPSE_DURATION = 100;
 
     private Context context;
     RoundedTransformation roundedCorners;
     ArrayList<LobsterComment> comments;
+
     public CommentAdapter(Context context,ArrayList<LobsterComment> comments ) {
         super(context, R.layout.story_view);
         this.comments = comments;
         this.context = context;
-        this.roundedCorners = new RoundedTransformation(30,0);
+        this.roundedCorners = new RoundedTransformation(ROUNDED_CORNER_RADIUS, ROUNDED_CORNER_MARGIN);
         this.inflater = (LayoutInflater) context.getSystemService(Context.LAYOUT_INFLATER_SERVICE);
-
     }
 
     @Override
@@ -57,14 +62,13 @@ public class CommentAdapter extends ArrayAdapter<String> {
         TextView username;
     };
 
-
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
         Log.d("Story Adapter", "Pos: " + position);
         final LobsterComment item = comments.get(position);
         ViewHolder viewHolder;
 
-        if (convertView==null){
+        if (convertView == null){
             convertView = inflater.inflate(R.layout.comment_view, parent,false);
             viewHolder = new ViewHolder();
             viewHolder.comment = (TextView) convertView.findViewById(R.id.comment_data);
@@ -79,37 +83,34 @@ public class CommentAdapter extends ArrayAdapter<String> {
                 .load(item.user.avatarUrl)
                 .transform(roundedCorners)
                 .into(viewHolder.avatar);
+
         viewHolder.comment.setText(Html.fromHtml(item.htmlData));
         viewHolder.username.setText(item.user.username);
-        float shiftRight = 30 * (item.indentLevel - 1);
+
+        float shiftRight = COMMENT_BORDER_PADDING * (item.indentLevel - 1);
         viewHolder.innerContainer.setPadding((int) shiftRight, 0, 0, 0);
+
         viewHolder.innerContainer.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-
-                expand(v.findViewById(R.id.comment_data));
-                return false;
+            View view = v.findViewById(R.id.comment_data);
+            expand(view);
+            return true;
             }
         });
         viewHolder.comment.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                CharSequence text = "Hello toast!";
-                int duration = Toast.LENGTH_SHORT;
-
-//                Toast toast = Toast.makeText(context, text, duration);
-//                v.setVisibility(View.INVISIBLE);
-                collapse(v);
-//                toast.show();
-                return false;
+            collapse(v);
+            return true;
             }
         });
         return convertView;
     }
+
     public static void collapse(final View v) {
         final int initialHeight = v.getMeasuredHeight();
-        Log.d("VH", "collapsing");
-
+        Log.d(TAG, "collapsing");
         Animation a = new Animation()
         {
             @Override
@@ -121,38 +122,41 @@ public class CommentAdapter extends ArrayAdapter<String> {
                     v.requestLayout();
                 }
             }
-
             @Override
             public boolean willChangeBounds() {
                 return true;
             }
         };
-
-        a.setDuration(100);
+        a.setDuration(VIEW_COLLAPSE_DURATION);
         v.startAnimation(a);
     }
+
     public static void expand(final View v) {
         v.measure(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.WRAP_CONTENT);
-        final int targtetHeight = v.getMeasuredHeight();
-        Log.d("VH", "expanding");
-
+        final int targetHeight = v.getMeasuredHeight();
+        Log.d(TAG, "expanding to " + targetHeight );
         v.getLayoutParams().height = 0;
         v.setVisibility(View.VISIBLE);
         Animation a = new Animation()
         {
             @Override
             protected void applyTransformation(float interpolatedTime, Transformation t) {
-            if(interpolatedTime == 1){
-                v.getLayoutParams().height = LinearLayout.LayoutParams.WRAP_CONTENT;
-//                notify();
-                v.requestLayout();
-                v.getParent().requestLayout();
-                v.invalidate();
+                if(interpolatedTime == 1){
+                    v.getLayoutParams().height = targetHeight;
+                    Log.d(TAG, "Setting the height to be....");
+                    Log.d(TAG, targetHeight + "--");
+//                    v.requestLayout();
+//                    v.getParent().requestLayout();
+//                    v.invalidate();
+//                    notify();
 
-            }else{
-                v.getLayoutParams().height = (int)(targtetHeight * interpolatedTime);
-            }
-                v.requestLayout();
+                }else{
+                    int tempHeight = (int)(targetHeight * interpolatedTime);
+                    v.getLayoutParams().height = tempHeight;
+                    Log.d(TAG, "Setting the height to be....");
+                    Log.d(TAG, tempHeight + "--");
+                    v.requestLayout();
+                }
             }
 
             @Override
@@ -162,7 +166,7 @@ public class CommentAdapter extends ArrayAdapter<String> {
         };
 
         // 1dp/ms
-        a.setDuration((int)(targtetHeight / v.getContext().getResources().getDisplayMetrics().density));
+        a.setDuration(VIEW_COLLAPSE_DURATION);
         v.startAnimation(a);
     }
 }

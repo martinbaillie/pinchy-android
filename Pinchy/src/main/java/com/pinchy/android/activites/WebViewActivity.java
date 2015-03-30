@@ -22,28 +22,31 @@ public class WebViewActivity extends Activity {
     private ShareActionProvider mShareActionProvider;
     private WebView webView;
     LobsterStory story;
+    int story_index;
     static String TAG = "WebView";
 
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.webview);
-
+    private void setStory(){
+        story_index = 0;
         Bundle extras = getIntent().getExtras();
-        int story_index = 0;
         if (extras != null) {
             story_index = extras.getInt("story_index");
         }
         story = LobsterStory.hottest().get(story_index);
+    }
 
-        if(story.isSelfPost()){
-            Intent intent = new Intent(this, CommentsViewActivity.class);
-            intent.putExtra("story_index", story_index);
-            startActivity(intent);
-            return;
-        }
-        Log.d(TAG,"url:" +  story.url  + " /");
+    private void moveToCommentsActivity(){
+        Intent intent = new Intent(this, CommentsViewActivity.class);
+        intent.putExtra("story_index", story_index);
+        startActivity(intent);
+    }
+
+    private void setUpActionBar(){
         ActionBar actionBar = getActionBar();
         actionBar.setTitle(story.title);
+        getActionBar().setDisplayHomeAsUpEnabled(true);
+    }
+
+    private void setUpWebView(){
         webView = (WebView) findViewById(R.id.webView1);
         webView.getSettings().setJavaScriptEnabled(true);
         webView.loadUrl(story.url);
@@ -55,8 +58,19 @@ public class WebViewActivity extends Activity {
                 return true;
             }
         });
-        getActionBar().setDisplayHomeAsUpEnabled(true);
-
+    }
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.webview);
+        setStory();
+        if(story.isSelfPost()) {
+            moveToCommentsActivity();
+            finish();
+            return;
+        }
+        setUpActionBar();
+        setUpWebView();
     }
 
     @Override
@@ -93,6 +107,9 @@ public class WebViewActivity extends Activity {
                 intent = new Intent(this, CommentsViewActivity.class);
                 intent.putExtra("story_index",story.index);
                 startActivity(intent);
+                return true;
+            case android.R.id.home:
+                onBackPressed();
                 return true;
         }
 
