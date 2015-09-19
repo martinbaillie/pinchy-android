@@ -2,6 +2,7 @@ package com.pinchy.android.adapters;
 
 import android.content.Context;
 import android.text.Html;
+import android.text.util.Linkify;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -84,7 +85,10 @@ public class CommentAdapter extends ArrayAdapter<String> {
                 .transform(roundedCorners)
                 .into(viewHolder.avatar);
 
-        viewHolder.comment.setText(Html.fromHtml(item.htmlData));
+        viewHolder.comment.setText(item.htmlData);
+        Linkify.addLinks(viewHolder.comment, Linkify.ALL);
+        viewHolder.comment.setText(Html.fromHtml(viewHolder.comment.getText().toString()));
+
         viewHolder.username.setText(item.user.username);
 
         float shiftRight = COMMENT_BORDER_PADDING * (item.indentLevel - 1);
