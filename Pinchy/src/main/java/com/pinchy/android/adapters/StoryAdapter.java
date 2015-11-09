@@ -7,7 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.ListView;
 import android.widget.TextView;
 
 import com.pinchy.android.LobsterAPIClient;
@@ -16,7 +15,6 @@ import com.pinchy.android.models.LobsterStory;
 import com.pinchy.android.NetworkCallback;
 import com.pinchy.android.R;
 
-import java.sql.Array;
 import java.util.ArrayList;
 
 /**

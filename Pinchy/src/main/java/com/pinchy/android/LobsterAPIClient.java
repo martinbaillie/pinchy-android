@@ -49,8 +49,7 @@ public class LobsterAPIClient {
             }
             @Override
             public void onFailure(Throwable e, JSONObject errorResponse) {
-                Log.d("FUCK", url);
-
+                Log.d(TAG, "Failed to fetch comments from " + url + "; " + e.getMessage());
             }
         });
     }
@@ -69,7 +68,6 @@ public class LobsterAPIClient {
                     try {
                         story = stories.getJSONObject(i);
                         LobsterStory.addHottest(story, i);
-
                     } catch (JSONException e) {
                         e.printStackTrace();
                     }
@@ -78,8 +76,5 @@ public class LobsterAPIClient {
                 callback.onSuccess();
             }
         });
-
-
     }
-
 }

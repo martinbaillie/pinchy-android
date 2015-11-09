@@ -5,6 +5,7 @@ import android.preference.PreferenceActivity;
 import android.preference.PreferenceFragment;
 
 import com.pinchy.android.R;
+import com.pinchy.android.views.ActionBarFontSetter;
 
 
 /**
@@ -15,6 +16,7 @@ public class UserSettingActivity extends PreferenceActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        ActionBarFontSetter.set("Settings", getActionBar(), this);
         getFragmentManager().beginTransaction().replace(android.R.id.content, new MyPreferenceFragment()).commit();
     }
 

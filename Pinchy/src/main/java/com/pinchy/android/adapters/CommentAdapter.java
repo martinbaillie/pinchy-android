@@ -65,7 +65,7 @@ public class CommentAdapter extends ArrayAdapter<String> {
 
     @Override
     public View getView(final int position, View convertView, ViewGroup parent) {
-        Log.d("Story Adapter", "Pos: " + position);
+        Log.d(TAG, "Pos: " + position);
         final LobsterComment item = comments.get(position);
         ViewHolder viewHolder;
 
@@ -149,11 +149,6 @@ public class CommentAdapter extends ArrayAdapter<String> {
                     v.getLayoutParams().height = targetHeight;
                     Log.d(TAG, "Setting the height to be....");
                     Log.d(TAG, targetHeight + "--");
-//                    v.requestLayout();
-//                    v.getParent().requestLayout();
-//                    v.invalidate();
-//                    notify();
-
                 }else{
                     int tempHeight = (int)(targetHeight * interpolatedTime);
                     v.getLayoutParams().height = tempHeight;
