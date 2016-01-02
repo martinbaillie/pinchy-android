@@ -11,6 +11,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.text.Spannable;
 import android.text.SpannableString;
+import android.text.TextUtils;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -80,16 +81,21 @@ public class StoryActivity extends Activity {
 
     private void storyClickHandler(int position){
         Intent intent;
-        SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
-        boolean useDefaultWebBrowser = SP.getBoolean("UseDefaultWebBrowser", true);
-        if(useDefaultWebBrowser){
-           String url = LobsterStory.hottest().get(position).url;
-           intent =  new Intent(Intent.ACTION_VIEW, Uri.parse(url));
-        }else{
-            intent = new Intent(getApplicationContext(), WebViewActivity.class);
+        String url = LobsterStory.hottest().get(position).url;
+        if (TextUtils.isEmpty(url)) {
+            // No external URL. Must be a Lobsters comment story
+            intent = new Intent(this, CommentsViewActivity.class);
             intent.putExtra("story_index", position);
+        } else {
+            SharedPreferences SP = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+            boolean useDefaultWebBrowser = SP.getBoolean("UseDefaultWebBrowser", true);
+            if (useDefaultWebBrowser) {
+                intent = new Intent(Intent.ACTION_VIEW, Uri.parse(url));
+            } else {
+                intent = new Intent(getApplicationContext(), WebViewActivity.class);
+                intent.putExtra("story_index", position);
+            }
         }
-
         startActivity(intent);
     }
 
